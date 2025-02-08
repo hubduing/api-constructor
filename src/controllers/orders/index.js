@@ -1,2 +1,6 @@
 const order = {"success":false,"message":"You should be authorised"}
-module.exports = order;
+const getOrder = (req, res) => {
+    res.json(order); 
+};
+
+module.exports = getOrder;
