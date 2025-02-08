@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // Импорт данных о ингредиентах
-const ingredients = require('./ingredients');
+const ingredients = require('./src/controllers/ingredients');
 
 // Эндпоинт для получения ингредиентов
 app.get('/ingredients', (req, res) => {
