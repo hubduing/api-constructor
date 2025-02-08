@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 const getIngredients = require('./src/controllers/ingredients');
 const getOrders = require('./src/controllers/orders/all'); 
-const authController = require('./src/controllers/auth');
+const getAuth = require('./src/controllers/auth/login');
+const getRegister = require('./src/controllers/auth/register');
 
 // Создаем экземпляр приложения
 const app = express();
@@ -14,8 +15,8 @@ app.use(express.static(path.join(__dirname, 'src', 'views')));
 // Обработка маршрутов
 app.get('/api/ingredients', getIngredients);
 app.get('/api/orders/all', getOrders); 
-app.post('/api/auth/login', authController.login);
-app.post('/api/auth/register', authController.register);
+app.post('/api/auth/login', getAuth);
+app.post('/api/auth/register', getRegister);
 
 // Главная страница
 app.get('/', (req, res) => {
