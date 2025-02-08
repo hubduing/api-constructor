@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'src', 'views')));
 
 // Обработка маршрутов
 app.get('/api/ingredients', getIngredients);
-app.get('/api/orders/all', getOrders); // Здесь остался прежним
+app.get('/api/orders/all', getOrders); 
 app.post('/api/auth/login', authController.login);
 app.post('/api/auth/register', authController.register);
 
