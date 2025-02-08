@@ -1,21 +1,28 @@
 const express = require('express');
+const path = require('path');
+const getIngredients = require('./src/controllers/ingredients');
+const getOrders = require('./src/controllers/orders/all'); 
+const authController = require('./src/controllers/auth');
+
+// Создаем экземпляр приложения
 const app = express();
-const port = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
-// Импорт данных о ингредиентах
-const ingredients = require('./src/controllers/ingredients');
+// Настройка статической папки для обслуживания файлов
+app.use(express.static(path.join(__dirname, 'src', 'views')));
 
-// Эндпоинт для получения ингредиентов
-app.get('/ingredients', (req, res) => {
-  res.json(ingredients); // Отправляем данные, которые уже содержат success: true
-});
+// Обработка маршрутов
+app.get('/api/ingredients', getIngredients);
+app.get('/api/orders/all', getOrders); // Здесь остался прежним
+app.post('/api/auth/login', authController.login);
+app.post('/api/auth/register', authController.register);
 
 // Главная страница
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+    res.sendFile(path.join(__dirname, 'src', 'views', 'index.html'));
 });
 
 // Запуск сервера
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(PORT, () => {
+    console.log(`Сервер запущен на https://api-constructor.onrender.com/`);
 });
