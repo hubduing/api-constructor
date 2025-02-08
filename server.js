@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
-const getIngredients = require('./src/controllers/ingredients');
+// const getIngredients = require('./src/controllers/ingredients');
+const ingredients = require('./src/controllers/ingredients');
 const getOrders = require('./src/controllers/orders/all'); 
 const getAuth = require('./src/controllers/auth/login');
 const getRegister = require('./src/controllers/auth/register');
@@ -13,7 +14,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, 'src', 'views')));
 
 // Обработка маршрутов
-app.get('/api/ingredients', getIngredients);
+app.get('/api/ingredients', (req, res) => {
+  res.json(ingredients); 
+});
 app.get('/api/orders/all', getOrders); 
 app.post('/api/auth/login', getAuth);
 app.post('/api/auth/register', getRegister);
