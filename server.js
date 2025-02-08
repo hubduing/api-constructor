@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 
-// Массив с данными о ингредиентах
+// Импорт данных о ингредиентах
 const ingredients = require('./ingredients');
 
 // Эндпоинт для получения ингредиентов
-app.get(`/${ingredients}`, (req, res) => {
-  res.json({ success: true, data: ingredients });
+app.get('/ingredients', (req, res) => {
+  res.json(ingredients); // Отправляем данные, которые уже содержат success: true
 });
 
 // Главная страница
