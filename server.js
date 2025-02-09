@@ -13,6 +13,9 @@ app.get('/orders/all', getOrders);
 app.post('/orders', createOrder);
 app.post('/auth/login', getAuth);
 app.post('/auth/register', getRegister);
+app.post('/auth/token', refreshToken);
+app.post('/password-reset', forgotPassword);
+app.post('/password-reset/reset', resetPassword);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'views', 'index.html'));

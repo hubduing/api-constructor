@@ -21,21 +21,19 @@ const getOrders = (req, res) => {
 
 // Контроллер для создания нового заказа
 const createOrder = (req, res) => {
-    const { ingredients } = req.body; // Получаем данные из тела запроса
+    const { ingredients } = req.body;
     const newOrder = {
-        id: orders.length + 1, // Генерируем ID для нового заказа
+        id: orders.length + 1,
         ingredients,
         createdAt: new Date(),
     };
-    orders.push(newOrder); // Добавляем новый заказ в массив
-    res.status(201).json({ success: true, order: newOrder }); // Возвращаем созданный заказ
+    orders.push(newOrder);
+    res.status(201).json({ success: true, order: newOrder });
 };
 
 // Контроллер для аутентификации пользователя
 const getAuth = (req, res) => {
     const { email, password } = req.body;
-
-    // Проверяем, есть ли пользователь с таким email и паролем
     const user = users.find(u => u.email === email && u.password === password);
     if (user) {
         res.json({ success: true, message: 'Успешная аутентификация' });
@@ -47,18 +45,40 @@ const getAuth = (req, res) => {
 // Контроллер для регистрации нового пользователя
 const getRegister = (req, res) => {
     const { email, name, password } = req.body;
-
-    // Проверяем, существует ли пользователь с таким email
-    const existingUser   = users.find(u => u.email === email);
-    if (existingUser  ) {
+    const existingUser  = users.find(u => u.email === email);
+    if (existingUser ) {
         return res.status(400).json({ success: false, message: 'Пользователь с таким email уже существует' });
     }
-
-    // Добавляем нового пользователя в массив
-    const newUser   = { email, name, password };
-    users.push(newUser  );
+    const newUser  = { email, name, password };
+    users.push(newUser );
     res.status(201).json({ success: true, message: 'Пользователь зарегистрирован', user: { email, name } });
 };
 
+// Контроллер для обновления токена
+const refreshToken = (req, res) => {
+    // Логика для обновления токена
+    res.json({ success: true, message: 'Токен обновлен' });
+};
+
+// Контроллер для сброса пароля
+const forgotPassword = (req, res) => {
+    const { email } = req.body;
+    // Логика для обработки сброса пароля (например, отправка ссылки на email)
+    res.json({ success: true, message: 'Ссылка для сброса пароля отправлена на email' });
+};
+
+// Контроллер для установки нового пароля
+const resetPassword = (req, res) => {
+    const { email, newPassword } = req.body;
+    // Логика для установки нового пароля
+    const user = users.find(u => u.email === email);
+    if (user) {
+        user.password = newPassword; // Обновляем пароль
+        res.json({ success: true, message: 'Пароль успешно обновлен' });
+    } else {
+        res.status(404).json({ success: false, message: 'Пользователь не найден' });
+    }
+};
+
 // Экспортируем контроллеры
-module.exports = { getIngredients, getOrders, createOrder, getAuth, getRegister };
+module.exports = { getIngredients, getOrders, createOrder, getAuth, getRegister, refreshToken, forgotPassword, resetPassword };
