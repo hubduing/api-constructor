@@ -7,6 +7,10 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'src', 'views')));
+app.use((req, res, next) => {
+  console.log(`Received request: ${req.method} ${req.url}`);
+  next();
+});
 
 app.get('/ingredients', getIngredients);
 app.get('/orders/all', getOrders);
