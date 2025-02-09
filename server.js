@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { getIngredients, getOrders, createOrder, getAuth, getRegister } = require('./src/controllers/controllers');
+const { getIngredients, getOrders, createOrder, getAuth, getRegister, refreshToken, forgotPassword, resetPassword } = require('./src/controllers/controllers');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
